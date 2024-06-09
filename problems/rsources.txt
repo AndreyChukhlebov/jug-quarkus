@@ -1,0 +1,63 @@
+andrey@andrey-desktop:~/IdeaProjects/jug-quarkus$ docker run  6e26453d374c
+__  ____  __  _____   ___  __ ____  ______
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/
+2024-06-09 17:50:27,532 INFO  [io.quarkus] (main) jug-quarkus 1.0.1-SNAPSHOT native (powered by Quarkus 3.10.0) started in 0.011s. Listening on: http://0.0.0.0:8080
+2024-06-09 17:50:27,532 INFO  [io.quarkus] (main) Profile prod activated.
+2024-06-09 17:50:27,532 INFO  [io.quarkus] (main) Installed features: [cdi, config-yaml, rest, smallrye-context-propagation, vertx]
+2024-06-09 17:51:26,005 ERROR [io.qua.ver.htt.run.QuarkusErrorHandler] (executor-thread-1) HTTP Request to /hello failed, error id: 24c689e0-8f6d-49fd-bad7-ae62040aa08a-1: java.lang.RuntimeException: Error injecting org.apache.ignite.client.IgniteClient ru.group.jug.GreetingResource.igniteClient
+        at ru.group.jug.GreetingResource_Bean.doCreate(Unknown Source)
+        at ru.group.jug.GreetingResource_Bean.create(Unknown Source)
+        at ru.group.jug.GreetingResource_Bean.create(Unknown Source)
+        at io.quarkus.arc.impl.AbstractSharedContext.createInstanceHandle(AbstractSharedContext.java:119)
+        at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:38)
+        at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:35)
+        at io.quarkus.arc.impl.LazyValue.get(LazyValue.java:32)
+        at io.quarkus.arc.impl.ComputingCache.computeIfAbsent(ComputingCache.java:69)
+        at io.quarkus.arc.impl.ComputingCacheContextInstances.computeIfAbsent(ComputingCacheContextInstances.java:19)
+        at io.quarkus.arc.impl.AbstractSharedContext.get(AbstractSharedContext.java:35)
+        at ru.group.jug.GreetingResource_Bean.get(Unknown Source)
+        at ru.group.jug.GreetingResource_Bean.get(Unknown Source)
+        at io.quarkus.arc.impl.ArcContainerImpl.beanInstanceHandle(ArcContainerImpl.java:559)
+        at io.quarkus.arc.impl.ArcContainerImpl.beanInstanceHandle(ArcContainerImpl.java:539)
+        at io.quarkus.arc.impl.ArcContainerImpl.beanInstanceHandle(ArcContainerImpl.java:572)
+        at io.quarkus.arc.impl.ArcContainerImpl$3.get(ArcContainerImpl.java:331)
+        at io.quarkus.arc.impl.ArcContainerImpl$3.get(ArcContainerImpl.java:328)
+        at io.quarkus.arc.runtime.BeanContainerImpl$1.create(BeanContainerImpl.java:58)
+        at io.quarkus.resteasy.reactive.common.runtime.ArcBeanFactory.createInstance(ArcBeanFactory.java:27)
+        at org.jboss.resteasy.reactive.server.handlers.InstanceHandler.handle(InstanceHandler.java:26)
+        at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:139)
+        at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+        at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:599)
+        at org.jboss.threads.EnhancedQueueExecutor$Task.doRunWith(EnhancedQueueExecutor.java:2516)
+        at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2495)
+        at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1521)
+        at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:11)
+        at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:11)
+        at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+        at java.base@21.0.3/java.lang.Thread.runWith(Thread.java:1596)
+        at java.base@21.0.3/java.lang.Thread.run(Thread.java:1583)
+        at org.graalvm.nativeimage.builder/com.oracle.svm.core.thread.PlatformThreads.threadStartRoutine(PlatformThreads.java:896)
+        at org.graalvm.nativeimage.builder/com.oracle.svm.core.thread.PlatformThreads.threadStartRoutine(PlatformThreads.java:872)
+Caused by: class org.apache.ignite.IgniteException: Failed to load class names properties file packaged with ignite binaries [file=META-INF/classnames.properties, ldr=jdk.internal.loader.ClassLoaders$AppClassLoader@2c8d66b2]
+        at org.apache.ignite.marshaller.MarshallerUtils.processSystemClasses(MarshallerUtils.java:251)
+        at org.apache.ignite.internal.client.thin.TcpIgniteClient$ClientMarshallerContext.<init>(TcpIgniteClient.java:688)
+        at org.apache.ignite.internal.client.thin.TcpIgniteClient.<init>(TcpIgniteClient.java:132)
+        at org.apache.ignite.internal.client.thin.TcpIgniteClient.<init>(TcpIgniteClient.java:118)
+        at org.apache.ignite.internal.client.thin.TcpIgniteClient.start(TcpIgniteClient.java:426)
+        at org.apache.ignite.Ignition.startClient(Ignition.java:587)
+        at ru.group.jug.IgniteConfig.igniteClient(IgniteConfig.java:26)
+        at ru.group.jug.IgniteConfig_ProducerMethod_igniteClient_5w9Eeqr_j6rnm1NSZV2ch7RwMCs_Bean.doCreate(Unknown Source)
+        at ru.group.jug.IgniteConfig_ProducerMethod_igniteClient_5w9Eeqr_j6rnm1NSZV2ch7RwMCs_Bean.create(Unknown Source)
+        at ru.group.jug.IgniteConfig_ProducerMethod_igniteClient_5w9Eeqr_j6rnm1NSZV2ch7RwMCs_Bean.create(Unknown Source)
+        at io.quarkus.arc.impl.AbstractSharedContext.createInstanceHandle(AbstractSharedContext.java:119)
+        at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:38)
+        at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:35)
+        at io.quarkus.arc.impl.LazyValue.get(LazyValue.java:32)
+        at io.quarkus.arc.impl.ComputingCache.computeIfAbsent(ComputingCache.java:69)
+        at io.quarkus.arc.impl.ComputingCacheContextInstances.computeIfAbsent(ComputingCacheContextInstances.java:19)
+        at io.quarkus.arc.impl.AbstractSharedContext.get(AbstractSharedContext.java:35)
+        at ru.group.jug.IgniteConfig_ProducerMethod_igniteClient_5w9Eeqr_j6rnm1NSZV2ch7RwMCs_Bean.get(Unknown Source)
+        at ru.group.jug.IgniteConfig_ProducerMethod_igniteClient_5w9Eeqr_j6rnm1NSZV2ch7RwMCs_Bean.get(Unknown Source)
+        ... 33 more

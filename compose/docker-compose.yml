@@ -1,0 +1,20 @@
+version: "3"
+services:
+  ignite:
+    image: 'apacheignite/ignite:latest'
+    ports:
+      #port for thin client
+      - '10800:10800'
+    environment:
+      #possible env variables are documented here: https://ignite.apache.org/docs/latest/installation/installing-using-docker
+      - CONFIG_URI=/config-file.xml
+      - IGNITE_WORK_DIR=/storage
+      # these are the default modules List. Another possible modules can you found here: https://ignite.apache.org/docs/latest/setup#enabling-modules
+      #- OPTION_LIBS=ignite-log4j2,ignite-spring,ignite-indexing
+    volumes:
+      # default configuration file mount, read the apache ignite docs how to configure apache ignite with other methods: https://ignite.apache.org/docs/latest/understanding-configuration
+      - type: bind
+        source: ./config-file.xml
+        target: /config-file.xml
+      # storage dir for persistence storage
+      - ./storage:/storage:rw

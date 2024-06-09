@@ -1,3 +1,31 @@
+minikube start
+https://minikube.sigs.k8s.io/docs/start/
+
+https://minikube.sigs.k8s.io/docs/handbook/dashboard/
+helm
+https://github.com/Romanow/helm-charts/tree/master/charts/java-service
+
+Создать 
+helm create <name-chart>
+
+
+helm delete demo-app
+helm install demo-app ./demo-chart
+
+helm rollback demo-app 2
+
+
+helm upgrade demo-app ./demo-chart --debug --dry-run
+
+helm upgrade --install demo-app ./demo-chart
+
+helm history demo-app
+
+minikube image rm andrey/jug-quarkus:1.0.1-SNAPSHOT
+minikube image load andrey/jug-quarkus:1.0.1-SNAPSHOT
+
+
+
 # jug-quarkus
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
