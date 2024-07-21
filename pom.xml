@@ -6,9 +6,9 @@
     <version>1.0.1-SNAPSHOT</version>
 
     <properties>
-        <ignite.version>2.16.0</ignite.version>
+        <ignite.version>2.15.0-SNAPSHOT</ignite.version>
         <compiler-plugin.version>3.12.1</compiler-plugin.version>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
@@ -94,7 +94,7 @@
                         --add-opens=java.base/java.time=ALL-UNNAMED
                         --add-opens=java.base/java.text=ALL-UNNAMED
                         --add-opens=java.management/sun.management=ALL-UNNAMED
-                        --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+                        --add-opens=java.desktop/java.awt.font=ALL-UNNAMED
                     </argLine>
                 </configuration>
             </plugin>
@@ -165,8 +165,34 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-17</quarkus.native.builder-image>
                 <quarkus.native.additional-build-args>
-                    -H:ResourceConfigurationFiles=resources-config.json,
+                    --add-opens=java.base/jdk.internal.access=ALL-UNNAMED,
+                    --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED,
+                    --add-opens=java.base/sun.nio.ch=ALL-UNNAMED,
+                    --add-opens=java.base/sun.util.calendar=ALL-UNNAMED,
+                    --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED,
+                    --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED,
+                    --add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED,
+                    --add-opens=jdk.management/com.sun.management.internal=ALL-UNNAMED,
+                    --add-opens=java.base/java.io=ALL-UNNAMED,
+                    --add-opens=java.base/java.nio=ALL-UNNAMED,
+                    --add-opens=java.base/java.net=ALL-UNNAMED,
+                    --add-opens=java.base/java.util=ALL-UNNAMED,
+                    --add-opens=java.base/java.util.concurrent=ALL-UNNAMED,
+                    --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED,
+                    --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED,
+                    --add-opens=java.base/java.lang=ALL-UNNAMED,
+                    --add-opens=java.base/java.lang.invoke=ALL-UNNAMED,
+                    --add-opens=java.base/java.math=ALL-UNNAMED,
+                    --add-opens=java.sql/java.sql=ALL-UNNAMED,
+                    --add-opens=java.base/java.lang.reflect=ALL-UNNAMED,
+                    --add-opens=java.base/java.time=ALL-UNNAMED,
+                    --add-opens=java.base/java.text=ALL-UNNAMED,
+                    --add-opens=java.management/sun.management=ALL-UNNAMED,
+                    --add-opens=java.desktop/java.awt.font=ALL-UNNAMED,
+                    -H:ReflectionConfigurationResources=reflect-config.json,
+                    -H:ResourceConfigurationFiles=resource-config.json,
                     --initialize-at-run-time=org.apache.ignite.internal.util.IgniteUtils\,org.apache.ignite.internal.binary.BinaryContext\,org.apache.ignite.internal.util.GridUnsafe\,org.apache.ignite.events.EventType\,org.apache.ignite.marshaller.MarshallerExclusions\,org.apache.ignite.internal.processors.query.QueryUtils\,org.apache.ignite.lang.IgniteUuid\,org.apache.ignite.internal.marshaller.optimized.OptimizedMarshallerUtils\,org.apache.ignite.marshaller.jdk.JdkMarshaller
                 </quarkus.native.additional-build-args>
             </properties>
@@ -181,6 +207,18 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+            </properties>
+        </profile>
+        <profile>
+            <id>trace</id>
+            <activation>
+                <property>
+                    <name>trace</name>
+                </property>
+            </activation>
+            <properties>
+                <skipITs>false</skipITs>
+                <quarkus.docker.dockerfile-jvm-path>src/main/docker/Dockerfile.tracer</quarkus.docker.dockerfile-jvm-path>
             </properties>
         </profile>
     </profiles>

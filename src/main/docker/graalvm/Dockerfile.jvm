@@ -1,0 +1,28 @@
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.9
+WORKDIR /deployments/
+RUN chown 1001 /deployments \
+    && chmod "g+rwX" /deployments \
+    && chown 1001:root /deployments
+
+### CONFIGURE GRAALVM AND NATIVE-IMAGE FOR TRACING-new
+
+RUN mkdir /graalvm-ce-java17-22.3.3 && mkdir native-image-generated-configs
+
+COPY graalvm-ce-java17-22.3.3/ /graalvm-ce-java17-22.3.3/
+
+COPY native-image-installable-svm-java17-linux-amd64-22.3.3.jar /
+
+
+ENV GRAAL_HOME=/graalvm-ce-java17-22.3.3
+ENV JAVA_HOME=/graalvm-ce-java17-22.3.3
+ENV PATH=/graalvm-ce-java17-22.3.3/bin/:$PATH
+
+RUN /graalvm-ce-java17-22.3.3/lib/installer/bin/gu -L install /native-image-installable-svm-java17-linux-amd64-22.3.3.jar
+
+COPY entry-point.sh /deployments/
+
+RUN   chmod +x /deployments/entry-point.sh \
+      && echo "Europe/Moscow" > /etc/timezone
+
+
+ENTRYPOINT  ["sh","./entry-point.sh"]

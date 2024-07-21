@@ -1,0 +1,1 @@
+docker cp 22f68a77bf71:/deployments/native-image-generated-configs /home/andrey/IdeaProjects/jug-quarkus/compose/json
