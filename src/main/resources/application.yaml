@@ -2,5 +2,3 @@ quarkus:
   log:
     console:
       enable: true
-  container-image:
-    build: true

@@ -165,6 +165,7 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-17</quarkus.native.builder-image>
                 <quarkus.native.additional-build-args>
                     --add-opens=java.base/jdk.internal.access=ALL-UNNAMED,
@@ -190,10 +191,7 @@
                     --add-opens=java.base/java.time=ALL-UNNAMED,
                     --add-opens=java.base/java.text=ALL-UNNAMED,
                     --add-opens=java.management/sun.management=ALL-UNNAMED,
-                    --add-opens=java.desktop/java.awt.font=ALL-UNNAMED,
-                    -H:ReflectionConfigurationResources=reflect-config.json,
-                    -H:ResourceConfigurationFiles=resource-config.json,
-                    --initialize-at-run-time=org.apache.ignite.internal.util.IgniteUtils\,org.apache.ignite.internal.binary.BinaryContext\,org.apache.ignite.internal.util.GridUnsafe\,org.apache.ignite.events.EventType\,org.apache.ignite.marshaller.MarshallerExclusions\,org.apache.ignite.internal.processors.query.QueryUtils\,org.apache.ignite.lang.IgniteUuid\,org.apache.ignite.internal.marshaller.optimized.OptimizedMarshallerUtils\,org.apache.ignite.marshaller.jdk.JdkMarshaller
+                    --add-opens=java.desktop/java.awt.font=ALL-UNNAMED
                 </quarkus.native.additional-build-args>
             </properties>
         </profile>
